@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LGX — Proof</title>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #171a21; --line: #262b36;
+    --text: #e6e8ec; --muted: #8b93a3; --accent: #6ea8fe;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 16px 80px; }
+  h1 { font-size: 28px; margin: 0 0 4px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); margin: 0 0 32px; font-size: 14px; }
+  .note {
+    border-left: 3px solid var(--accent); background: var(--panel);
+    padding: 12px 16px; margin: 36px 0 16px; border-radius: 0 8px 8px 0;
+    font-weight: 600;
+  }
+  .grid {
+    display: grid; gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  }
+  .shot {
+    display: block; background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; color: var(--muted);
+    text-decoration: none; font-size: 12px;
+    transition: border-color .15s, transform .15s;
+  }
+  .shot:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .shot img { display: block; width: 100%; height: auto; background: #0b0d11; }
+  .shot .cap {
+    display: flex; justify-content: space-between; gap: 8px;
+    padding: 8px 10px; border-top: 1px solid var(--line);
+  }
+  .shot .cap span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .shot .cap span:last-child { color: var(--accent); flex: none; }
+  .shot .dead { padding: 28px 12px; text-align: center; }
+  .chat {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 10px; padding: 14px 16px; margin: 36px 0 16px;
+  }
+  .msg { margin: 0 0 10px; }
+  .msg:last-child { margin-bottom: 0; }
+  .msg .who { color: var(--accent); font-weight: 600; }
+  .msg .time { color: var(--muted); font-size: 12px; margin-left: 6px; }
+  .msg .body { white-space: pre-line; }
+  .msg.sys { color: var(--muted); font-size: 13px; font-style: italic; }
+</style>
+</head>
+<body>
+<main>
+  <h1>LGX — Proof</h1>
+  <p class="sub">Screenshots in original order. Click any image to open the full-size original.</p>
+  <div id="feed"></div>
+</main>
+
+<script>
+const WHO = "k u s h t i ⁺₊ [LC]";
+
+const feed = [
+  { note: "proof that this wasnt an LGX member^" },
+  { imgs: [
+    "IMG_5952.webp",
+    "IMG_5955.webp",
+  ]},
+  { note: "the screenshot Sylvia sent here is from alliance chat of END which is an alliance in 4511" },
+  { imgs: [
+    "Screenshot_20261118_000923_Discord.webp",
+  ]},
+  { note: "proof she was in 4511" },
+  { imgs: [
+    "Screenshot_20261118_002414_Whiteout_Survival.webp",
+    "Screenshot_20261118_002411_Whiteout_Survival.webp",
+    "IMG_5936.webp",
+    "IMG_5937.webp",
+    "IMG_5939.webp",
+    "IMG_5940.webp",
+    "IMG_5941.webp",
+    "IMG_5942.webp",
+    "IMG_5944.webp",
+    "IMG_5945.webp",
+    "IMG_5946.webp",
+    "IMG_5948.webp",
+    "IMG_5949.webp",
+    "IMG_5950.webp",
+    "IMG_5951.webp",
+  ]},
+  { note: "proof of me trying to help sylvia find out who it is and respect completely ignoring it" },
+  { note: "then me wanting to show him proof and him rejecting" },
+  { imgs: [
+    "IMG_5960.webp",
+  ]},
+  { chat: [
+    { who: WHO, time: "00:38", body: "because god knows why" },
+    { sys: "k u s h t i ⁺₊ pinned a message to this channel. — 00:38" },
+    { who: WHO, time: "00:40", body: "THIS IS WHAT THIS PROOF SHOWS:\nLGX had nothing to do with the Sylvia situation\nLGX tried to help ELT help find out who did this, and eventually i managed to, however it was met with pure disrespect from ELT" },
+    { who: WHO, time: "00:41", body: "Now RESPECT IS ONCE AGAIN ATTACKING LGX AND BREAKING NAP" },
+    { who: WHO, time: "00:41", body: "i hope this bring light to u guys in terms of who the bad guy is here" },
+  ]},
+  { imgs: [
+    "IMG_5961.webp",
+    "IMG_5963.webp",
+    "IMG_5964.webp",
+    "IMG_5965.webp",
+    "IMG_5966.webp",
+    "IMG_5967.webp",
+    "IMG_5968.webp",
+    "IMG_5969.webp",
+    "IMG_5970.webp",
+  ]},
+];
+
+const el = (tag, cls, text) => {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text != null) n.textContent = text;
+  return n;
+};
+
+const root = document.getElementById("feed");
+let count = 0;
+
+for (const item of feed) {
+  if (item.note) {
+    root.append(el("div", "note", item.note));
+  } else if (item.imgs) {
+    const grid = el("div", "grid");
+    for (const path of item.imgs) {
+      const url = "img/" + path;
+      const name = path.replace(".webp", "");
+      const a = el("a", "shot");
+      a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer";
+      const img = el("img");
+      img.loading = "lazy"; img.alt = name; img.src = url;
+      img.onerror = () => img.replaceWith(el("div", "dead", "Image unavailable"));
+      const cap = el("div", "cap");
+      cap.append(el("span", null, `${++count}. ${name}`), el("span", null, "open ↗"));
+      a.append(img, cap);
+      grid.append(a);
+    }
+    root.append(grid);
+  } else if (item.chat) {
+    const box = el("div", "chat");
+    for (const m of item.chat) {
+      if (m.sys) { box.append(el("p", "msg sys", m.sys)); continue; }
+      const p = el("div", "msg");
+      const head = el("div");
+      head.append(el("span", "who", m.who), el("span", "time", m.time));
+      p.append(head, el("div", "body", m.body));
+      box.append(p);
+    }
+    root.append(box);
+  }
+}
+</script>
+</body>
+</html>
